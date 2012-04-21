@@ -1,4 +1,4 @@
-'From Cuis 4.0 of 21 April 2012 [latest update: #1260] on 21 April 2012 at 7:32:14 pm'!
+'From Cuis 4.0 of 21 April 2012 [latest update: #1260] on 21 April 2012 at 8:23:10 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
@@ -15,26 +15,49 @@ PasswordGenerator class
 PasswordGenerator passwordLength: 8. 
 'abcdefghijklmnopqrstuvwxyz' atRandom.!
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 3/25/2012 14:57'!
-generatePassword		passwordLength = 8 ifTrue: [self generatePasswordWithLength8].	! !
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 4/21/2012 19:59'!
+generatPassword
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 3/25/2012 15:50'!
-generatePasswordWithLength8	| index tmpPassword |	tmpPassword _ String new: 8.	index _ 0.	[ index < 8 ] whileTrue: [		index _ index + 1.		tmpPassword			at: index			put: 'abcdefghijklmnopqrstuvwxyz' atRandom ].	"		Transcript		 show: tmpPassword;		 cr."	self newPassword: tmpPassword.	! !
+passwordLength = 8 ifTrue: [self generatePasswordWithLength8].! !
 
-!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 3/25/2012 14:52'!
-initPasswordGeneratorWithLength: anInteger	self passwordLength: anInteger.	self generatePassword.! !
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 4/21/2012 20:00'!
+generatePasswordWithLength8
+	| index tmpPassword |
+	tmpPassword _ String new: 8.
+	index _ 0.
+	[ index < 8 ] whileTrue: [
+		index _ index + 1.
+		tmpPassword
+			at: index
+			put: 'abcdefghijklmnopqrstuvwxyz' atRandom ].
+	"	
+	Transcript
+		 show: tmpPassword;
+		 cr."
+	self newPassword: tmpPassword.! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 3/25/2012 14:36'!
-newPassword^ newPassword! !
+!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 4/21/2012 20:13'!
+initPasswordGeneratorWithLength: anInteger
+	self passwordLength: anInteger.
+	self generatePassword.! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 3/25/2012 15:48'!
-newPassword: aNewPassword	newPassword _ aNewPassword! !
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:21'!
+newPassword
+^ newPassword! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 3/25/2012 14:49'!
-passwordLength	^ passwordLength.! !
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
+newPassword: aNewPassword
+	newPassword _ aNewPassword! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 3/25/2012 14:50'!
-passwordLength: anInteger	passwordLength := anInteger.! !
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
+passwordLength
+	^ passwordLength.! !
 
-!PasswordGenerator class methodsFor: 'instance creation' stamp: 'gsa 3/25/2012 15:08'!
-passwordLength: anInteger 	^ self new initPasswordGeneratorWithLength: anInteger ! !
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
+passwordLength: anInteger
+	passwordLength := anInteger.! !
+
+!PasswordGenerator class methodsFor: 'instance creation' stamp: 'gsa 4/21/2012 20:22'!
+passwordLength: anInteger 
+
+	^ self new initPasswordGeneratorWithLength: anInteger ! !
