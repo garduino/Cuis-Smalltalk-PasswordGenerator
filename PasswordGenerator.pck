@@ -1,4 +1,4 @@
-'From Cuis 4.0 of 21 April 2012 [latest update: #1260] on 21 April 2012 at 8:23:10 pm'!
+'From Cuis 4.0 of 21 April 2012 [latest update: #1260] on 21 April 2012 at 9:26:57 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
@@ -15,8 +15,21 @@ PasswordGenerator class
 PasswordGenerator passwordLength: 8. 
 'abcdefghijklmnopqrstuvwxyz' atRandom.!
 
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:20'!
+digits
+^ digits! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:21'!
+digits: aString
+	digits _ aString! !
+
 !PasswordGenerator methodsFor: 'actions' stamp: 'gsa 4/21/2012 19:59'!
 generatPassword
+
+passwordLength = 8 ifTrue: [self generatePasswordWithLength8].! !
+
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 4/21/2012 21:26'!
+generatePassword
 
 passwordLength = 8 ifTrue: [self generatePasswordWithLength8].! !
 
@@ -36,10 +49,26 @@ generatePasswordWithLength8
 		 cr."
 	self newPassword: tmpPassword.! !
 
-!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 4/21/2012 20:13'!
+!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 4/21/2012 21:26'!
 initPasswordGeneratorWithLength: anInteger
+	self initializeData.
 	self passwordLength: anInteger.
 	self generatePassword.! !
+
+!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 4/21/2012 21:25'!
+initializeData
+	self lowerCase: 'abcdefghijklmnopqrstuvwxyz'.
+	self upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
+	self digits: '0123456789'.
+	self specialChars: '!!¡¿?@$&'.! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:18'!
+lowerCase
+^ lowerCase! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:19'!
+lowerCase: aString
+	lowerCase _ aString! !
 
 !PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:21'!
 newPassword
@@ -56,6 +85,22 @@ passwordLength
 !PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
 passwordLength: anInteger
 	passwordLength := anInteger.! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:22'!
+specialChars
+^ specialChars! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:21'!
+specialChars: aString
+	specialChars _ aString! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:20'!
+upperCase
+^ upperCase! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:19'!
+upperCase: aString
+	upperCase _ aString! !
 
 !PasswordGenerator class methodsFor: 'instance creation' stamp: 'gsa 4/21/2012 20:22'!
 passwordLength: anInteger 
