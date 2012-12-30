@@ -1,4 +1,4 @@
-'From Cuis 4.0 of 21 April 2012 [latest update: #1260] on 21 April 2012 at 9:26:57 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1524] on 30 December 2012 at 7:02:54 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
