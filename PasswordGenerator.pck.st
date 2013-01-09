@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 8:18:41 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 8:21:01 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
@@ -132,9 +132,9 @@ initializeData
 	self digits: '0123456789'.
 	self specialChars: '!!¡¿?@$&'.! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 20:18'!
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 20:20'!
 license
-^ 'Copyright (c) 2012 Germán S. Arduino
+^ 'Copyright (c) 2012 Germán S. Arduino (gsa @ arsol.net)
 
 Permission is hereby granted, free of charge, to any
 person obtaining a copy of this software and associated
