@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 8:02:25 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 8:18:41 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
@@ -11,9 +11,15 @@ PasswordGenerator class
 	instanceVariableNames: ''!
 
 
-!PasswordGenerator commentStamp: 'gsa 4/21/2012 18:45' prior: 0!
-PasswordGenerator passwordLength: 8. 
-'abcdefghijklmnopqrstuvwxyz' atRandom.!
+!PasswordGenerator commentStamp: 'gsa 1/9/2013 20:14' prior: 0!
+To instantiate the class:
+
+   myPwGenerator := PasswordGenerator passwordLength: 9 lowerCase: true upperCase: true digits: true specialChars: true.
+
+
+To generate the password:
+
+	myPwGenerator generatePassword.!
 
 !PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:51'!
 bolDigits
@@ -76,7 +82,7 @@ digits
 digits: aString
 	digits _ aString! !
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 19:56'!
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 20:11'!
 generatePassword
 	| index tmpPassword |
 	
@@ -92,11 +98,14 @@ generatePassword
 			at: index
 			"put: 'abcdefghijklmnopqrstuvwxyz' atRandom" 
 			put: charset atRandom].
-	
+"	
 	Transcript
 		 show: tmpPassword;
 		 newLine.
-	self newPassword: tmpPassword.! !
+	"
+	self newPassword: tmpPassword.
+	
+	^ self newPassword.! !
 
 !PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 19:58'!
 initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.
@@ -122,6 +131,32 @@ initializeData
 	self upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
 	self digits: '0123456789'.
 	self specialChars: '!!¡¿?@$&'.! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 20:18'!
+license
+^ 'Copyright (c) 2012 Germán S. Arduino
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the
+Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions of
+the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.'! !
 
 !PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:18'!
 lowerCase
