@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 8:21:01 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 8:30:59 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
@@ -82,13 +82,13 @@ digits
 digits: aString
 	digits _ aString! !
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 20:11'!
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 20:23'!
 generatePassword
 	| index tmpPassword |
 	
 	self buildCharset.
 	
-	tmpPassword _ String new: passwordLength.
+	tmpPassword _ String new: self passwordLength.
 	
 	
 	index _ 0.
@@ -107,12 +107,11 @@ generatePassword
 	
 	^ self newPassword.! !
 
-!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 19:58'!
+!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 20:30'!
 initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.
 
-
-	aLength < 1 ifTrue: [self passwordLength: 8].
-	aLength > 24 ifTrue: [self passwordLength: 24].
+	" PasswordGenerator generates passwords between 8 and 100 chars"
+	aLength < 8 ifTrue: [self passwordLength: 8] ifFalse: [aLength > 100 ifTrue: [self passwordLength: 100] ifFalse: [self passwordLength: aLength]].
 	
 	self bolLowerCase: aLowerCase.
 	self bolUpperCase: anUpperCase.
