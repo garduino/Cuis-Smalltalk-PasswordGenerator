@@ -1,8 +1,8 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1524] on 30 December 2012 at 7:02:54 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 8:02:25 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
-	instanceVariableNames: 'newPassword lowerCase upperCase digits specialChars passwordLength'
+	instanceVariableNames: 'newPassword lowerCase upperCase digits specialChars passwordLength bolLowerCase bolUpperCase bolDigits bolSpecialChars charset'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'PasswordGenerator'!
@@ -15,6 +15,59 @@ PasswordGenerator class
 PasswordGenerator passwordLength: 8. 
 'abcdefghijklmnopqrstuvwxyz' atRandom.!
 
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:51'!
+bolDigits
+^ bolDigits! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:52'!
+bolDigits: aBoolean
+	bolDigits _ aBoolean! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:52'!
+bolLowerCase
+^ bolLowerCase! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:53'!
+bolLowerCase: aBoolean
+	bolLowerCase _ aBoolean! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:53'!
+bolSpecialChars
+^ bolSpecialChars! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:54'!
+bolSpecialChars: aBoolean
+	bolSpecialChars _ aBoolean! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:54'!
+bolUpperCase
+^ bolUpperCase! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:55'!
+bolUpperCase: aBoolean
+	bolUpperCase _ aBoolean! !
+
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 19:57'!
+buildCharset
+
+	"
+	self lowerCase: 'abcdefghijklmnopqrstuvwxyz'.
+	self upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
+	self digits: '0123456789'.
+	self specialChars: '!!¡¿?@$&'.
+	"	
+	
+	
+	bolLowerCase ifTrue: [bolUpperCase ifTrue: [bolDigits ifTrue: [bolSpecialChars ifTrue: [charset := lowerCase,upperCase,digits,specialChars]]]]! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:12'!
+charset
+^ charset! !
+
+!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:12'!
+charset: aString
+	charset _ aString! !
+
 !PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:20'!
 digits
 ^ digits! !
@@ -23,40 +76,48 @@ digits
 digits: aString
 	digits _ aString! !
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 4/21/2012 19:59'!
-generatPassword
-
-passwordLength = 8 ifTrue: [self generatePasswordWithLength8].! !
-
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 4/21/2012 21:26'!
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 19:56'!
 generatePassword
-
-passwordLength = 8 ifTrue: [self generatePasswordWithLength8].! !
-
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 4/21/2012 20:00'!
-generatePasswordWithLength8
 	| index tmpPassword |
-	tmpPassword _ String new: 8.
+	
+	self buildCharset.
+	
+	tmpPassword _ String new: passwordLength.
+	
+	
 	index _ 0.
-	[ index < 8 ] whileTrue: [
+	[ index < passwordLength ] whileTrue: [
 		index _ index + 1.
 		tmpPassword
 			at: index
-			put: 'abcdefghijklmnopqrstuvwxyz' atRandom ].
-	"	
+			"put: 'abcdefghijklmnopqrstuvwxyz' atRandom" 
+			put: charset atRandom].
+	
 	Transcript
 		 show: tmpPassword;
-		 cr."
+		 newLine.
 	self newPassword: tmpPassword.! !
 
-!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 4/21/2012 21:26'!
-initPasswordGeneratorWithLength: anInteger
-	self initializeData.
-	self passwordLength: anInteger.
-	self generatePassword.! !
+!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 19:58'!
+initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.
 
-!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 4/21/2012 21:25'!
+
+	aLength < 1 ifTrue: [self passwordLength: 8].
+	aLength > 24 ifTrue: [self passwordLength: 24].
+	
+	self bolLowerCase: aLowerCase.
+	self bolUpperCase: anUpperCase.
+	self bolDigits: aDigits.
+	self bolSpecialChars: aSpecialChars.
+	
+	self initializeData.
+	
+	! !
+
+!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 19:40'!
 initializeData
+
+
 	self lowerCase: 'abcdefghijklmnopqrstuvwxyz'.
 	self upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
 	self digits: '0123456789'.
@@ -102,7 +163,7 @@ upperCase
 upperCase: aString
 	upperCase _ aString! !
 
-!PasswordGenerator class methodsFor: 'instance creation' stamp: 'gsa 4/21/2012 20:22'!
-passwordLength: anInteger 
+!PasswordGenerator class methodsFor: 'instance creation' stamp: 'gsa 1/9/2013 19:42'!
+passwordLength: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars
 
-	^ self new initPasswordGeneratorWithLength: anInteger ! !
+	^ self new initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.! !
