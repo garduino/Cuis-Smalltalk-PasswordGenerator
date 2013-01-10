@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 9:30:13 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 9:43:49 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
@@ -53,32 +53,23 @@ bolUpperCase
 bolUpperCase: aBoolean
 	bolUpperCase _ aBoolean! !
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 21:29'!
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 21:43'!
 buildCharset
-
-	"
-	self lowerCase: 'abcdefghijklmnopqrstuvwxyz'.
-	self upperCase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
-	self digits: '0123456789'.
-	self specialChars: '!!¡¿?@$&'.
-	"	
 	
 	
-	bolLowerCase ifTrue: [
-		bolUpperCase ifTrue: [
-			bolDigits ifTrue: [
-				bolSpecialChars ifTrue: [charset := lowerCase,upperCase,digits,specialChars]
-									ifFalse: [charset := lowerCase,upperCase,digits]]
-								ifFalse:[
-									
-									
-									bolSpecialChars ifTrue: [charset := lowerCase,upperCase,specialChars]
-									ifFalse: [charset := lowerCase,upperCase]]
-							
-							
-								
-									]
-									]! !
+	bolLowerCase ifTrue: [charset := lowerCase]
+					ifFalse: [charset := ''].
+	
+	
+	bolUpperCase ifTrue: [charset := charset,upperCase].
+	
+	bolDigits ifTrue: [charset := charset,digits].
+					
+	bolSpecialChars ifTrue: [charset := charset,specialChars].
+	
+	
+	"If no option is selected, then ALL is used by default"
+	charset = '' ifTrue:[charset := lowerCase,upperCase,digits,specialChars]! !
 
 !PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:12'!
 charset
