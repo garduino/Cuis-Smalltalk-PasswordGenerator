@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 8:30:59 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 9:30:13 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGenerator category: #PasswordGenerator!
 ActiveModel subclass: #PasswordGenerator
@@ -53,7 +53,7 @@ bolUpperCase
 bolUpperCase: aBoolean
 	bolUpperCase _ aBoolean! !
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 19:57'!
+!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 21:29'!
 buildCharset
 
 	"
@@ -64,7 +64,21 @@ buildCharset
 	"	
 	
 	
-	bolLowerCase ifTrue: [bolUpperCase ifTrue: [bolDigits ifTrue: [bolSpecialChars ifTrue: [charset := lowerCase,upperCase,digits,specialChars]]]]! !
+	bolLowerCase ifTrue: [
+		bolUpperCase ifTrue: [
+			bolDigits ifTrue: [
+				bolSpecialChars ifTrue: [charset := lowerCase,upperCase,digits,specialChars]
+									ifFalse: [charset := lowerCase,upperCase,digits]]
+								ifFalse:[
+									
+									
+									bolSpecialChars ifTrue: [charset := lowerCase,upperCase,specialChars]
+									ifFalse: [charset := lowerCase,upperCase]]
+							
+							
+								
+									]
+									]! !
 
 !PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:12'!
 charset
