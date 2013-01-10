@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 10 January 2013 at 9:22:48 am'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 10 January 2013 at 10:46:02 am'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGeneratorModel category: #'PasswordGenerator-Model'!
 ActiveModel subclass: #PasswordGeneratorModel
@@ -231,9 +231,24 @@ tearDown
 
  myPasswordGenerator := nil! !
 
-!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 09:19'!
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 09:28'!
+testNewIncludeDigits
+	| myArray |
+
+	myPasswordGenerator bolLowerCase: false;
+							bolUpperCase: true;
+							bolDigits: true;
+							bolSpecialChars: false.
+
+	myPasswordGenerator generatePassword.
+
+	myArray := myPasswordGenerator digits asArray.
+
+	myPasswordGenerator newPassword do: [:each | self assert: [myArray includes: each]].! !
+
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 09:28'!
 testNewLowerCaseOnly
-	| myArrayOfLowerCase |
+	| myArray |
 
 	myPasswordGenerator bolLowerCase: true;
 							bolUpperCase: false;
@@ -242,9 +257,9 @@ testNewLowerCaseOnly
 
 	myPasswordGenerator generatePassword.
 
-	myArrayOfLowerCase := myPasswordGenerator lowerCase asArray.
+	myArray := myPasswordGenerator lowerCase asArray.
 
-	myPasswordGenerator newPassword do: [:each | self assert: [myArrayOfLowerCase includes: each]].! !
+	myPasswordGenerator newPassword do: [:each | self assert: [myArray includes: each]].! !
 
 !PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 08:39'!
 testNewPasswordSize0
@@ -273,9 +288,9 @@ testNewPasswordSize9
 	myPasswordGenerator generatePassword.
 	self assert: [ myPasswordGenerator newPassword size = 9].! !
 
-!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 09:22'!
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 09:28'!
 testNewUpperCaseOnly
-	| myArrayOfLowerCase |
+	| myArray |
 
 	myPasswordGenerator bolLowerCase: false;
 							bolUpperCase: true;
@@ -284,6 +299,6 @@ testNewUpperCaseOnly
 
 	myPasswordGenerator generatePassword.
 
-	myArrayOfLowerCase := myPasswordGenerator upperCase asArray.
+	myArray := myPasswordGenerator upperCase asArray.
 
-	myPasswordGenerator newPassword do: [:each | self assert: [myArrayOfLowerCase includes: each]].! !
+	myPasswordGenerator newPassword do: [:each | self assert: [myArray includes: each]].! !
