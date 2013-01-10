@@ -1,59 +1,69 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 9 January 2013 at 9:43:49 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 10 January 2013 at 7:55:27 am'!
 'Description Please enter a description for this package '!
-!classDefinition: #PasswordGenerator category: #PasswordGenerator!
-ActiveModel subclass: #PasswordGenerator
+!classDefinition: #PasswordGeneratorModel category: #'PasswordGenerator-Model'!
+ActiveModel subclass: #PasswordGeneratorModel
 	instanceVariableNames: 'newPassword lowerCase upperCase digits specialChars passwordLength bolLowerCase bolUpperCase bolDigits bolSpecialChars charset'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'PasswordGenerator'!
-!classDefinition: 'PasswordGenerator class' category: #PasswordGenerator!
-PasswordGenerator class
+	category: 'PasswordGenerator-Model'!
+!classDefinition: 'PasswordGeneratorModel class' category: #'PasswordGenerator-Model'!
+PasswordGeneratorModel class
+	instanceVariableNames: ''!
+
+!classDefinition: #PasswordGeneratorModelTests category: #'PasswordGenerator-Model-Tests'!
+TestCase subclass: #PasswordGeneratorModelTests
+	instanceVariableNames: 'myPasswordGenerator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'PasswordGenerator-Model-Tests'!
+!classDefinition: 'PasswordGeneratorModelTests class' category: #'PasswordGenerator-Model-Tests'!
+PasswordGeneratorModelTests class
 	instanceVariableNames: ''!
 
 
-!PasswordGenerator commentStamp: 'gsa 1/9/2013 20:14' prior: 0!
+!PasswordGeneratorModel commentStamp: 'gsa 1/10/2013 07:50' prior: 0!
 To instantiate the class:
 
-   myPwGenerator := PasswordGenerator passwordLength: 9 lowerCase: true upperCase: true digits: true specialChars: true.
+   myPasswordGenerator := PasswordGeneratorModel passwordLength: 9 lowerCase: true upperCase: true digits: true specialChars: true.
 
 
 To generate the password:
 
-	myPwGenerator generatePassword.!
+	myPasswordGenerator generatePassword.!
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:51'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:51'!
 bolDigits
 ^ bolDigits! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:52'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:52'!
 bolDigits: aBoolean
 	bolDigits _ aBoolean! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:52'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:52'!
 bolLowerCase
 ^ bolLowerCase! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:53'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:53'!
 bolLowerCase: aBoolean
 	bolLowerCase _ aBoolean! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:53'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:53'!
 bolSpecialChars
 ^ bolSpecialChars! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:54'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:54'!
 bolSpecialChars: aBoolean
 	bolSpecialChars _ aBoolean! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:54'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:54'!
 bolUpperCase
 ^ bolUpperCase! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:55'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:55'!
 bolUpperCase: aBoolean
 	bolUpperCase _ aBoolean! !
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 21:43'!
+!PasswordGeneratorModel methodsFor: 'actions' stamp: 'gsa 1/9/2013 21:43'!
 buildCharset
 	
 	
@@ -71,23 +81,23 @@ buildCharset
 	"If no option is selected, then ALL is used by default"
 	charset = '' ifTrue:[charset := lowerCase,upperCase,digits,specialChars]! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:12'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:12'!
 charset
 ^ charset! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:12'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 19:12'!
 charset: aString
 	charset _ aString! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:20'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:20'!
 digits
 ^ digits! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:21'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:21'!
 digits: aString
 	digits _ aString! !
 
-!PasswordGenerator methodsFor: 'actions' stamp: 'gsa 1/9/2013 20:23'!
+!PasswordGeneratorModel methodsFor: 'actions' stamp: 'gsa 1/9/2013 20:23'!
 generatePassword
 	| index tmpPassword |
 	
@@ -112,7 +122,7 @@ generatePassword
 	
 	^ self newPassword.! !
 
-!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 20:30'!
+!PasswordGeneratorModel methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 20:30'!
 initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.
 
 	" PasswordGenerator generates passwords between 8 and 100 chars"
@@ -127,7 +137,7 @@ initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase dig
 	
 	! !
 
-!PasswordGenerator methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 19:40'!
+!PasswordGeneratorModel methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 19:40'!
 initializeData
 
 
@@ -136,7 +146,7 @@ initializeData
 	self digits: '0123456789'.
 	self specialChars: '!!¡¿?@$&'.! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 1/9/2013 20:20'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/9/2013 20:20'!
 license
 ^ 'Copyright (c) 2012 Germán S. Arduino (gsa @ arsol.net)
 
@@ -162,47 +172,63 @@ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.'! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:18'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:18'!
 lowerCase
 ^ lowerCase! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:19'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:19'!
 lowerCase: aString
 	lowerCase _ aString! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:21'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:21'!
 newPassword
 ^ newPassword! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
 newPassword: aNewPassword
 	newPassword _ aNewPassword! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
 passwordLength
 	^ passwordLength.! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
 passwordLength: anInteger
 	passwordLength := anInteger.! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:22'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:22'!
 specialChars
 ^ specialChars! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:21'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:21'!
 specialChars: aString
 	specialChars _ aString! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:20'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:20'!
 upperCase
 ^ upperCase! !
 
-!PasswordGenerator methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:19'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:19'!
 upperCase: aString
 	upperCase _ aString! !
 
-!PasswordGenerator class methodsFor: 'instance creation' stamp: 'gsa 1/9/2013 19:42'!
+!PasswordGeneratorModel class methodsFor: 'instance creation' stamp: 'gsa 1/9/2013 19:42'!
 passwordLength: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars
 
 	^ self new initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.! !
+
+!PasswordGeneratorModelTests methodsFor: 'initialize-release' stamp: 'gsa 1/10/2013 07:48'!
+setup
+
+ myPasswordGenerator := PasswordGeneratorModel passwordLength: 9 lowerCase: true upperCase: true digits: true specialChars: true.! !
+
+!PasswordGeneratorModelTests methodsFor: 'initialize-release' stamp: 'gsa 1/10/2013 07:49'!
+tearDown
+
+ myPasswordGenerator := nil! !
+
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 07:54'!
+test9CharsAllOptionsTrue
+
+	myPasswordGenerator generatePassword.
+	self assert: [ myPasswordGenerator newPassword size = 9].! !
