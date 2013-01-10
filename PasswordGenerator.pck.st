@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 10 January 2013 at 7:55:27 am'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 10 January 2013 at 8:46:55 am'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGeneratorModel category: #'PasswordGenerator-Model'!
 ActiveModel subclass: #PasswordGeneratorModel
@@ -122,11 +122,10 @@ generatePassword
 	
 	^ self newPassword.! !
 
-!PasswordGeneratorModel methodsFor: 'initialize-release' stamp: 'gsa 1/9/2013 20:30'!
-initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.
+!PasswordGeneratorModel methodsFor: 'initialize-release' stamp: 'gsa 1/10/2013 08:44'!
+initiPasswordGenerator: anInteger lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.
 
-	" PasswordGenerator generates passwords between 8 and 100 chars"
-	aLength < 8 ifTrue: [self passwordLength: 8] ifFalse: [aLength > 100 ifTrue: [self passwordLength: 100] ifFalse: [self passwordLength: aLength]].
+	self passwordLength: anInteger.
 	
 	self bolLowerCase: aLowerCase.
 	self bolUpperCase: anUpperCase.
@@ -192,9 +191,14 @@ newPassword: aNewPassword
 passwordLength
 	^ passwordLength.! !
 
-!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 20:22'!
+!PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 1/10/2013 08:45'!
 passwordLength: anInteger
-	passwordLength := anInteger.! !
+
+	" PasswordGenerator generates passwords between 8 and 100 chars"
+
+	anInteger < 8 ifTrue: [passwordLength := 8] ifFalse: [anInteger > 100 ifTrue: [passwordLength := 100] ifFalse: [passwordLength := anInteger]].
+
+! !
 
 !PasswordGeneratorModel methodsFor: 'accessing' stamp: 'gsa 4/21/2012 21:22'!
 specialChars
@@ -212,13 +216,13 @@ upperCase
 upperCase: aString
 	upperCase _ aString! !
 
-!PasswordGeneratorModel class methodsFor: 'instance creation' stamp: 'gsa 1/9/2013 19:42'!
-passwordLength: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars
+!PasswordGeneratorModel class methodsFor: 'instance creation' stamp: 'gsa 1/10/2013 08:41'!
+passwordLength: anInteger lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars
 
-	^ self new initiPasswordGenerator: aLength lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.! !
+	^ self new initiPasswordGenerator: anInteger lowerCase: aLowerCase upperCase: anUpperCase digits: aDigits specialChars: aSpecialChars.! !
 
-!PasswordGeneratorModelTests methodsFor: 'initialize-release' stamp: 'gsa 1/10/2013 07:48'!
-setup
+!PasswordGeneratorModelTests methodsFor: 'initialize-release' stamp: 'gsa 1/10/2013 08:35'!
+setUp
 
  myPasswordGenerator := PasswordGeneratorModel passwordLength: 9 lowerCase: true upperCase: true digits: true specialChars: true.! !
 
@@ -227,8 +231,29 @@ tearDown
 
  myPasswordGenerator := nil! !
 
-!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 07:54'!
-test9CharsAllOptionsTrue
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 08:39'!
+testNewPasswordSize0
+
+	myPasswordGenerator passwordLength: 7.
+	myPasswordGenerator generatePassword.
+	self assert: [ myPasswordGenerator newPassword size = 8].! !
+
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 08:46'!
+testNewPasswordSize120
+
+	myPasswordGenerator passwordLength: 120.
+	myPasswordGenerator generatePassword.
+	self assert: [ myPasswordGenerator newPassword size = 100].! !
+
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 08:46'!
+testNewPasswordSize20
+
+	myPasswordGenerator passwordLength: 20.
+	myPasswordGenerator generatePassword.
+	self assert: [ myPasswordGenerator newPassword size = 20].! !
+
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 08:38'!
+testNewPasswordSize9
 
 	myPasswordGenerator generatePassword.
 	self assert: [ myPasswordGenerator newPassword size = 9].! !
