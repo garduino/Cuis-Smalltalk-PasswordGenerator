@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1549] on 10 January 2013 at 10:46:02 am'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1576] on 13 February 2013 at 6:24:43 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGeneratorModel category: #'PasswordGenerator-Model'!
 ActiveModel subclass: #PasswordGeneratorModel
@@ -231,12 +231,12 @@ tearDown
 
  myPasswordGenerator := nil! !
 
-!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 09:28'!
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 2/13/2013 18:24'!
 testNewIncludeDigits
 	| myArray |
 
 	myPasswordGenerator bolLowerCase: false;
-							bolUpperCase: true;
+							bolUpperCase: false;
 							bolDigits: true;
 							bolSpecialChars: false.
 
