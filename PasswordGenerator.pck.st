@@ -1,4 +1,4 @@
-'From Cuis 4.1 of 12 December 2012 [latest update: #1576] on 13 February 2013 at 6:24:43 pm'!
+'From Cuis 4.1 of 12 December 2012 [latest update: #1576] on 13 February 2013 at 6:40:55 pm'!
 'Description Please enter a description for this package '!
 !classDefinition: #PasswordGeneratorModel category: #'PasswordGenerator-Model'!
 ActiveModel subclass: #PasswordGeneratorModel
@@ -261,21 +261,21 @@ testNewLowerCaseOnly
 
 	myPasswordGenerator newPassword do: [:each | self assert: [myArray includes: each]].! !
 
-!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 08:39'!
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 2/13/2013 18:27'!
 testNewPasswordSize0
 
 	myPasswordGenerator passwordLength: 7.
 	myPasswordGenerator generatePassword.
 	self assert: [ myPasswordGenerator newPassword size = 8].! !
 
-!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 08:46'!
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 2/13/2013 18:30'!
 testNewPasswordSize120
 
 	myPasswordGenerator passwordLength: 120.
 	myPasswordGenerator generatePassword.
 	self assert: [ myPasswordGenerator newPassword size = 100].! !
 
-!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 1/10/2013 08:46'!
+!PasswordGeneratorModelTests methodsFor: 'testing' stamp: 'gsa 2/13/2013 18:29'!
 testNewPasswordSize20
 
 	myPasswordGenerator passwordLength: 20.
